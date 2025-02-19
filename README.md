@@ -3,8 +3,7 @@
 
 ## **convert_m3u.py**
    A python script to convert xlsx to m3u/m3u to xlsx
-
-### Usage: 
+   
    m3u to xlsx, outputs a matching xlsx file.
     `python3 convert_m3u.py <playlist_name>.m3u`
 
