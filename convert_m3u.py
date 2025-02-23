@@ -22,11 +22,15 @@ def parse_m3u(m3u_file):
             attributes['channel_name'] = channel_name
             attribute_keys.add('channel_name')
             
-            if i + 1 < len(lines):
-                attributes['stream-url'] = lines[i + 1].strip()
-            else:
-                attributes['stream-url'] = ""
-            attribute_keys.add('stream-url')
+            stream_urls = []
+            j = i + 1
+            while j < len(lines) and not lines[j].startswith('#EXTINF:'):
+                if lines[j].strip().startswith('http'):
+                    stream_urls.append(lines[j].strip())
+                j += 1
+            for idx, url in enumerate(stream_urls):
+                attributes[f'stream-url.{idx+1}'] = url
+                attribute_keys.add(f'stream-url.{idx+1}')
             
             channels.append(attributes)
     
@@ -46,15 +50,16 @@ def create_m3u_from_xlsx(xlsx_file, m3u_file):
         for _, row in df.iterrows():
             attributes = []
             for col in df.columns:
-                if col not in ['stream-url', 'channel_name'] and pd.notna(row[col]):
+                if col not in ['channel_name'] and pd.notna(row[col]) and not col.startswith('stream-url'):
                     attributes.append(f'{col}="{row[col]}"')
             
             channel_name = row.get("channel_name", "Unknown")
-            stream_url = row.get("stream-url", "")
             
             extinf_line = f'#EXTINF:-1 {" ".join(attributes)},{channel_name}\n'
             file.write(extinf_line)
-            file.write(stream_url + "\n")
+            for col in df.columns:
+                if col.startswith('stream-url') and pd.notna(row[col]):
+                    file.write(row[col] + "\n")
     
     print(f"Conversion complete! Saved to {m3u_file}")
 
@@ -81,4 +86,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
