@@ -1,5 +1,6 @@
 import os
 import argparse
+import sys
 
 def parse_m3u(file_path):
     """Parse the M3U file and return a dictionary grouped by group-title."""
@@ -8,7 +9,6 @@ def parse_m3u(file_path):
     
     groups = {}
     current_group = None
-    current_entries = []
     
     for line in lines:
         line = line.strip()
@@ -25,12 +25,12 @@ def parse_m3u(file_path):
                 if group_title not in groups:
                     groups[group_title] = []
                 current_group = group_title
-                current_entries = groups[current_group]
             else:
                 current_group = None
+            groups[current_group].append(line)  # Save the metadata line
         elif line.startswith('http'):
             if current_group:
-                current_entries.append(line)  # Save the URL of the current group
+                groups[current_group].append(line)  # Save the URL of the current group
     
     return groups
 
@@ -44,7 +44,7 @@ def write_group_files(groups, output_dir):
         with open(group_file_path, 'w', encoding='utf-8') as f:
             f.write('#EXTM3U\n')  # Write M3U header
             for entry in entries:
-                f.write(f'#EXTINF:-1,{group}\n{entry}\n')
+                f.write(f'{entry}\n')
 
 def main(input_m3u, output_dir):
     """Main function to parse the M3U and write separated group files."""
@@ -55,5 +55,11 @@ if __name__ == '__main__':
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Split M3U file by group-title.')
     parser.add_argument('input_m3u', type=str, help='Path to the input M3U file')
-    parser.add_argument('output_dir', type=str
-, na
+    parser.add_argument('output_dir', type=str, help='Directory to save the output M3U files')
+    args = parser.parse_args()
+    
+    try:
+        main(args.input_m3u, args.output_dir)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
