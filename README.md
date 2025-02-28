@@ -1,6 +1,6 @@
 # M3U Tools
 
-This folder contains several scripts to manipulate and convert M3U files.
+A collection of scripts to manipulate and convert M3U files.
 
 ## Requirements
 
@@ -15,26 +15,7 @@ pip install pandas
 
 ## Scripts
 
-### 1. `converter.py`
-
-Convert between `.xlsx`, `.csv`, and `.m3u` file formats.
-
-#### Usage
-
-```sh
-python converter.py input_file output_format
-```
-
-#### Example Commands
-
-```sh
-python converter.py input.xlsx m3u
-python converter.py input.csv m3u
-python converter.py input.m3u xlsx
-python converter.py input.m3u csv
-```
-
-### 2. `split_m3u.py`
+### 1. `split_m3u.py`
 
 Split an M3U file into multiple M3U files based on the `group-title`.
 
@@ -50,7 +31,7 @@ python split_m3u.py input.m3u output_dir
 python split_m3u.py input.m3u output_directory
 ```
 
-### 3. `sort_and_prefix_group_title.py`
+### 2. `sort_and_prefix_group_title.py`
 
 Sort M3U entries by `group-title` and add a prefix to the `group-title`.
 
@@ -66,7 +47,7 @@ python sort_and_prefix_group_title.py m3u_file prefix
 python sort_and_prefix_group_title.py input.m3u "Prefix_"
 ```
 
-### 4. `convert_m3u.py`
+### 3. `convert_m3u.py`
 
 Convert between M3U and XLSX formats.
 
@@ -83,7 +64,7 @@ python convert_m3u.py input.m3u
 python convert_m3u.py input.xlsx
 ```
 
-### 5. `add_group_title.py`
+### 4. `add_group_title.py`
 
 Add a `group-title` field to M3U entries.
 
