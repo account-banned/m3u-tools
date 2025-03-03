@@ -1,105 +1,34 @@
 # M3U Tools
 
-A collection of scripts to manipulate and convert M3U files.
+A collection of scripts to manipulate and convert M3U playlists. These tools help in cleaning up, sorting, splitting into groups, and updating the README for M3U playlists.
 
 ## Requirements
 
-- Python 3.x
-- pandas library (for `convert_m3u.py`)
-
-You can install the required library using pip:
-
-```sh
-pip install pandas
-```
+- Node.js (for running JavaScript scripts)
+- Git (for committing and pushing changes)
 
 ## Scripts
 
-### 1. `split_m3u.py`
+### cleanup-m3u.js
+Cleans up the M3U file by trimming whitespace, replacing multiple spaces with a single space, and ensuring a single newline at the end of the file.
 
-Split an M3U file into multiple M3U files based on the `group-title`.
+### sort-m3u.js
+Sorts the entries in the M3U file (uncommented in the workflow).
 
-#### Usage
+### groups.js
+Splits the M3U file into group-specific playlists and saves them in the `groups` directory.
 
-```sh
-python split_m3u.py input.m3u output_dir
-```
+### readme-m3u.js
+Updates the README file with comprehensive playlist information, including statistics and available playlists.
 
-#### Example Command
+## Usage
 
-```sh
-python split_m3u.py input.m3u output_directory
-```
+1. **Run the scripts**: Use the provided bash script to run the necessary scripts.
+   ```sh
+   ./validate.sh
+   ```
 
-### 2. `sort_and_prefix_group_title.py`
-
-Sort M3U entries by `group-title` and add a prefix to the `group-title`.
-
-#### Usage
-
-```sh
-python sort_and_prefix_group_title.py m3u_file prefix
-```
-
-#### Example Command
-
-```sh
-python sort_and_prefix_group_title.py input.m3u "Prefix_"
-```
-
-### 3. `convert_m3u.py`
-
-Convert between M3U and XLSX formats.
-
-#### Usage
-
-```sh
-python convert_m3u.py input_file [output_file]
-```
-
-#### Example Commands
-
-```sh
-python convert_m3u.py input.m3u
-python convert_m3u.py input.xlsx
-```
-
-### 4. `add_group_title.py`
-
-Add a `group-title` field to M3U entries.
-
-#### Usage
-
-```sh
-python add_group_title.py m3u_file group_title
-```
-
-#### Example Command
-
-```sh
-python add_group_title.py input.m3u "New Group Title"
-```
-
-## Example Input File
-
-### input.xlsx or input.csv
-
-| group-title | tvg-id | tvg-logo | channel_name | stream-url                |
-|-------------|--------|----------|--------------|---------------------------|
-| Group 1     | id1    | logo1    | Channel 1    | http://example.com/stream1 |
-| Group 2     | id2    | logo2    | Channel 2    | http://example.com/stream2 |
-
-## Example Output File
-
-### input.m3u
-
-```
-#EXTM3U
-#EXTINF:-1 group-title="Group 1" tvg-id="id1" tvg-logo="logo1",Channel 1
-http://example.com/stream1
-#EXTINF:-1 group-title="Group 2" tvg-id="id2" tvg-logo="logo2",Channel 2
-http://example.com/stream2
-```
+2. **Commit changes**: The script will automatically commit and push any changes made by the scripts.
 
 ## License
 
