@@ -1,34 +1,52 @@
 # M3U Tools
 
-A collection of scripts to manipulate and convert M3U playlists. These tools help in cleaning up, sorting, splitting into groups, and updating the README for M3U playlists.
+A collection of scripts to manipulate and convert M3U files. These tools help in splitting M3U files into groups, adding group titles, and converting M3U playlists to other formats.
 
 ## Requirements
 
 - Node.js (for running JavaScript scripts)
-- Git (for committing and pushing changes)
+- Python 3.x (for running Python scripts)
+- pandas library (for `convert_m3u.py`)
 
 ## Scripts
 
-### cleanup-m3u.js
-Cleans up the M3U file by trimming whitespace, replacing multiple spaces with a single space, and ensuring a single newline at the end of the file.
+### JavaScript Scripts
 
-### sort-m3u.js
-Sorts the entries in the M3U file (uncommented in the workflow).
-
-### groups.js
+#### groups.js
 Splits the M3U file into group-specific playlists and saves them in the `groups` directory.
 
-### readme-m3u.js
-Updates the README file with comprehensive playlist information, including statistics and available playlists.
+**Dependencies**:
+- Node.js
 
-## Usage
+**Example Usage**:
+```sh
+node /path/to/m3u-tools/groups.js /path/to/your.m3u
+```
 
-1. **Run the scripts**: Use the provided bash script to run the necessary scripts.
-   ```sh
-   ./validate.sh
-   ```
+### Python Scripts
 
-2. **Commit changes**: The script will automatically commit and push any changes made by the scripts.
+#### convert_m3u.py
+Converts M3U playlists to other formats using the pandas library.
+
+**Dependencies**:
+- Python 3.x
+- pandas library
+
+**Example Usage**:
+```sh
+python3 /path/to/m3u-tools/convert_m3u.py /path/to/your.m3u
+```
+
+#### add_group_title.py
+Adds a 'group-title' field to M3U entries.
+
+**Dependencies**:
+- Python 3.x
+
+**Example Usage**:
+```sh
+python3 /path/to/m3u-tools/add_group_title.py /path/to/your.m3u "Your Group Title"
+```
 
 ## License
 
